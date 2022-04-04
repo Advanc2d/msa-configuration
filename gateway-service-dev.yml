@@ -86,6 +86,17 @@ spring:
               args:
                   name: statusCircuitBreaker
                   fallbackUri: forward:/fallback/Faliure
+                  
+        - id: statusdetail-service
+          uri: lb://STATUSDETAIL-SERVICE 
+          predicates:
+            - Path=/statusdetail/** 
+          filters:
+            - RewritePath=/statusdetail/?(?<segment>.*), /$\{segment}
+            - name: CircuitBreaker
+              args:
+                  name: statusdetailCircuitBreaker
+                  fallbackUri: forward:/fallback/Faliure
 ---
 # security 설정
 spring:
