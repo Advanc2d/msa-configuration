@@ -6,7 +6,9 @@ spring:
     username: dream
     password: 1234
   resources:
-    static-locations: classpath:/resources/static/**    
+    static-locations: classpath:/resources/static/**
+  kafka:
+    bootstrap-servers: 172.18.0.101:9092 #도커 ip주소 입력  
 
     
 # 유레카 클라이언트 설정   
@@ -23,3 +25,8 @@ eureka:
 # mybatis 연동 설정
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
+
+#kafka 설정
+kafka:
+ server_endpoint: 172.18.0.101:9092
+ topic_name: my-topic
