@@ -97,6 +97,7 @@ spring:
               args:
                   name: approveCircuitBreaker
                   fallbackUri: forward:/fallback/Faliure
+                  
 ---
 # security 설정
 spring:
