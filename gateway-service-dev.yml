@@ -100,7 +100,17 @@ spring:
               args:
                   name: approveCircuitBreaker
                   fallbackUri: forward:/fallback/Faliure
-                  
+        
+        - id: error-service-fallback
+          uri: lb://ERROR-SERVICE-FALLBACK # uri: http://localhost:8001 # 포워딩 할 주소, http://localhost:8000/menu 로 들어오면 http://localhost:8001로 포워딩
+          predicates:
+            - Path=/fallback/** # 해당 gateway 서버의 /menu/**로 들어오는 menu-service로 인식하겠다는 조건
+          filters:
+            - RewritePath=/fallback/?(?<segment>.*), /$\{segment}
+            - name: CircuitBreaker
+              args:
+                  name: errorCircuitBreaker
+                  fallbackUri: forward:/fallback/failure
 ---
 # security 설정
 spring:
@@ -150,6 +160,8 @@ resilience4j:
       statusCircuitBreaker:
         baseConfig: default
       approveCircuitBreaker:
+        baseConfig: default
+      errorCircuitBreaker:
         baseConfig: default
         
 
