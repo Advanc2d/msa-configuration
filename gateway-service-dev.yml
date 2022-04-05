@@ -1,3 +1,6 @@
+server:
+  port: 8000
+
 #라우팅
 spring:
   cloud:
