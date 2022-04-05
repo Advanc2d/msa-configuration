@@ -87,15 +87,15 @@ spring:
                   name: statusCircuitBreaker
                   fallbackUri: forward:/fallback/Faliure
                   
-        - id: statusdetail-service
-          uri: lb://STATUSDETAIL-SERVICE 
+        - id: approve-service
+          uri: lb://APPROVE-SERVICE 
           predicates:
-            - Path=/statusdetail/** 
+            - Path=/approve/** 
           filters:
-            - RewritePath=/statusdetail/?(?<segment>.*), /$\{segment}
+            - RewritePath=/approve/?(?<segment>.*), /$\{segment}
             - name: CircuitBreaker
               args:
-                  name: statusdetailCircuitBreaker
+                  name: approveCircuitBreaker
                   fallbackUri: forward:/fallback/Faliure
 ---
 # security 설정
@@ -144,6 +144,8 @@ resilience4j:
       listCircuitBreaker:
         baseConfig: default
       statusCircuitBreaker:
+        baseConfig: default
+      approveCircuitBreaker:
         baseConfig: default
         
 
