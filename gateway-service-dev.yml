@@ -13,7 +13,18 @@ spring:
         response-timeout: 10s
       default-filters:
         -  TokenRelay
-      routes:          
+      routes:
+        - id: main-service
+          uri: lb://MAIN-SERVICE 
+          predicates:
+            - Path=/main/** 
+          filters:
+            - RewritePath=/main/?(?<segment>.*), /$\{segment}     
+            - name: CircuitBreaker
+              args:
+                  name: mainCircuitBreaker
+                  fallbackUri: forward:/fallback/failure    
+                  
         - id: menu-service
           uri: lb://MENU-SERVICE # uri: http://localhost:8001 # 포워딩 할 주소, http://localhost:8000/menu 로 들어오면 http://localhost:8001로 포워딩
           predicates:
@@ -145,6 +156,8 @@ resilience4j:
         failureRateThreshold: 50  # 에러 비율 (퍼센트)로 해당 값 이상으로 에러 발생시 서킷이 Open 된다.
         waitDurationInOpenState: 5s  # 서킷의 상태가 Open에서 Half-open으로 변경되기 전에 Circuit Breaker가 기다리는 시간
     instances:
+      mainCircuitBreaker:
+        baseConfig: default
       menuCircuitBreaker:
         baseConfig: default
       manageCircuitBreaker:
