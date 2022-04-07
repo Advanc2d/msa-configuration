@@ -25,17 +25,6 @@ spring:
                   name: mainCircuitBreaker
                   fallbackUri: forward:/fallback/failure    
                   
-        - id: menu-service
-          uri: lb://MENU-SERVICE # uri: http://localhost:8001 # 포워딩 할 주소, http://localhost:8000/menu 로 들어오면 http://localhost:8001로 포워딩
-          predicates:
-            - Path=/menu/** # 해당 gateway 서버의 /menu/**로 들어오는 menu-service로 인식하겠다는 조건
-          filters:
-            - RewritePath=/menu/?(?<segment>.*), /$\{segment}
-            - name: CircuitBreaker
-              args:
-                  name: menuCircuitBreaker
-                  fallbackUri: forward:/fallback/Faliure
-              
         - id: product-service
           uri: lb://PRODUCT-SERVICE 
           predicates:
@@ -57,50 +46,29 @@ spring:
               args:
                   name: manageCircuitBreaker
                   fallbackUri: forward:/fallback/Faliure      
-        - id: loan-service
-          uri: lb://LOAN-SERVICE 
+        - id: order-service
+          uri: lb://ORDER-SERVICE 
           predicates:
-            - Path=/loan/** 
+            - Path=/order/** 
           filters:
-            - RewritePath=/loan/?(?<segment>.*), /$\{segment} 
+            - RewritePath=/order/?(?<segment>.*), /$\{segment} 
             - name: CircuitBreaker
               args:
-                  name: loanCircuitBreaker
+                  name: orderCircuitBreaker
                   fallbackUri: forward:/fallback/Faliure
-                                 
-        - id: list-service
-          uri: lb://LIST-SERVICE 
+                                             
+        - id: confirm-service
+          uri: lb://CONFIRM-SERVICE 
           predicates:
-            - Path=/list/** 
+            - Path=/confirm/** 
           filters:
-            - RewritePath=/list/?(?<segment>.*), /$\{segment}  
+            - RewritePath=/confirm/?(?<segment>.*), /$\{segment}
             - name: CircuitBreaker
               args:
-                  name: listCircuitBreaker
-                  fallbackUri: forward:/fallback/Faliure 
-            
-        - id: save-service
-          uri: lb://SAVE-SERVICE 
-          predicates:
-            - Path=/save/** 
-          filters:
-            - RewritePath=/save/?(?<segment>.*), /$\{segment}
-            - name: CircuitBreaker
-              args:
-                  name: saveCircuitBreaker
+                  name: confirmCircuitBreaker
                   fallbackUri: forward:/fallback/Faliure
                                         
-        - id: status-service
-          uri: lb://STATUS-SERVICE 
-          predicates:
-            - Path=/status/** 
-          filters:
-            - RewritePath=/status/?(?<segment>.*), /$\{segment}
-            - name: CircuitBreaker
-              args:
-                  name: statusCircuitBreaker
-                  fallbackUri: forward:/fallback/Faliure
-                  
+                 
         - id: approve-service
           uri: lb://APPROVE-SERVICE 
           predicates:
@@ -154,21 +122,17 @@ resilience4j:
         registerHealthIndicator: true # actuator를 통해 circuitbraker 상태를 확인하기 위해 설정
         minimumNumberOfCalls: 5 # Circuit Breaker가 에러 비율 또 slow call 비율을 계산하기 전에 요구되는 최소한의 요청 수
         failureRateThreshold: 50  # 에러 비율 (퍼센트)로 해당 값 이상으로 에러 발생시 서킷이 Open 된다.
-        waitDurationInOpenState: 5s  # 서킷의 상태가 Open에서 Half-open으로 변경되기 전에 Circuit Breaker가 기다리는 시간
+        waitDurationInOpenState: 10s  # 서킷의 상태가 Open에서 Half-open으로 변경되기 전에 Circuit Breaker가 기다리는 시간
     instances:
       mainCircuitBreaker:
-        baseConfig: default
-      menuCircuitBreaker:
         baseConfig: default
       manageCircuitBreaker:
         baseConfig: default
       productCircuitBreaker:
         baseConfig: default
-      loanCircuitBreaker:
+      orderCircuitBreaker:
         baseConfig: default
-      saveCircuitBreaker:
-        baseConfig: default
-      listCircuitBreaker:
+      confirmCircuitBreaker:
         baseConfig: default
       statusCircuitBreaker:
         baseConfig: default
