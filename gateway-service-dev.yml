@@ -3,6 +3,20 @@ server:
 
 #라우팅
 spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://192.168.1.54:8080/auth/realms/MSA
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+#            provider: keycloak
+            client-id: spring-gateway-client
+            client-secret: WEcACPUTWPfuhPrEz3bBaHcl7OLLmYX1
+            authorization-grant-type: authorization_code
+            redirect-uri: '{baseUrl}/login/oauth2/code/keycloak'     
   cloud:
    gateway:
       filter:
@@ -90,23 +104,7 @@ spring:
               args:
                   name: errorCircuitBreaker
                   fallbackUri: forward:/fallback/failure
----
-# security 설정
-spring:
-  security:
-    oauth2:
-      client:
-        provider:
-          keycloak:
-            issuer-uri: http://192.168.1.54:8080/auth/realms/MSA
-            user-name-attribute: preferred_username
-        registration:
-          keycloak:
-#            provider: keycloak
-            client-id: spring-gateway-client
-            client-secret: WEcACPUTWPfuhPrEz3bBaHcl7OLLmYX1
-            authorization-grant-type: authorization_code
-            redirect-uri: '{baseUrl}/login/oauth2/code/keycloak'        
+
                
 #keycloak 설정          
 keycloak:
@@ -150,5 +148,6 @@ eureka:
     service-url:
      defaultZone: http://192.168.1.49:8761/eureka # 서비스를 등록할 서버 주소를 지정  #임시 : 도커를 위해 현민ip주소에 등록 
   instance:
-    instance-id: gateway-microservice-instance # eureka에 등록되는 id 값
+    instance-id: gateway-microservice-instance # eureka에 등록되는 id 값     
+
 
