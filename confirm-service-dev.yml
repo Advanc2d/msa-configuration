@@ -48,7 +48,6 @@ eureka:
     service-url:
      defaultZone: http://192.168.1.49:8761/eureka # 서비스를 등록할 서버 주소를 지정  #임시 : 도커를 위해 현민ip주소에 등록
 
----
 #kafka 설정
 kafka:
   server_endpoint: 172.18.0.101:9092
