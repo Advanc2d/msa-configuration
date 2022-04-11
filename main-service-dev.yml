@@ -25,7 +25,7 @@ spring:
           jwk-set-uri: http://192.168.1.54:8080/auth/realms/MSA/protocol/openid-connect/certs 
   kafka:
     bootstrap-servers: 172.18.0.101:9092 #도커 ip주소 입력  
----
+
 # #kafka 설정
 # kafka:
 #   server_endpoint: 172.18.0.101:9092
