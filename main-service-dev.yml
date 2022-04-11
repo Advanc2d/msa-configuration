@@ -12,7 +12,7 @@ keycloak:
 spring:         
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.1.49:3306/sample?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://192.168.1.49:13306/sample?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
     password: 1234
   resources:
@@ -25,23 +25,8 @@ spring:
           jwk-set-uri: http://192.168.1.54:8080/auth/realms/MSA/protocol/openid-connect/certs 
   kafka:
     bootstrap-servers: 172.18.0.101:9092 #도커 ip주소 입력  
-
-# #kafka 설정
-# kafka:
-#   server_endpoint: 172.18.0.101:9092
-#   topic_name: my-topic-receivedproduct
-# ---
-#kafka 설정
-kafka:
-  server_endpoint: 172.18.0.101:9092
-  topic_name: my-topic1
-# ---  
-# #docker kafka
-# spring:    
-#   kafka:
-#     bootstrap-servers: 172.18.0.101:9092 #도커 ip주소 입력 
     
-# 유레카 클라이언트 설정   
+# 유레카 클라이언트 설정
 eureka:
   instance:
     instance-id: main-microservice-instance  # eureka에 등록되는 id 값
@@ -55,4 +40,8 @@ eureka:
 # mybatis 연동 설정
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
-
+  
+#kafka 설정
+kafka:
+  server_endpoint: 172.18.0.101:9092
+  topic_name: my-topic1
