@@ -48,7 +48,7 @@ spring:
             - name: CircuitBreaker
               args:
                   name: productCircuitBreaker
-                  fallbackUri: forward:/fallback/Faliure                 
+                  fallbackUri: forward:/fallback/faliure                 
               
         - id: manage-service
           uri: lb://MANAGE-SERVICE 
@@ -59,7 +59,7 @@ spring:
             - name: CircuitBreaker
               args:
                   name: manageCircuitBreaker
-                  fallbackUri: forward:/fallback/Faliure      
+                  fallbackUri: forward:/fallback/faliure                 
         - id: order-service
           uri: lb://ORDER-SERVICE 
           predicates:
@@ -69,7 +69,7 @@ spring:
             - name: CircuitBreaker
               args:
                   name: orderCircuitBreaker
-                  fallbackUri: forward:/fallback/Faliure
+                  fallbackUri: forward:/fallback/faliure                 
                                              
         - id: confirm-service
           uri: lb://CONFIRM-SERVICE 
@@ -80,7 +80,7 @@ spring:
             - name: CircuitBreaker
               args:
                   name: confirmCircuitBreaker
-                  fallbackUri: forward:/fallback/Faliure
+                  fallbackUri: forward:/fallback/faliure                 
                                         
                  
         - id: approve-service
@@ -92,7 +92,7 @@ spring:
             - name: CircuitBreaker
               args:
                   name: approveCircuitBreaker
-                  fallbackUri: forward:/fallback/Faliure
+                  fallbackUri: forward:/fallback/faliure                 
         
         - id: error-service-fallback
           uri: lb://ERROR-SERVICE-FALLBACK # uri: http://localhost:8001 # 포워딩 할 주소, http://localhost:8000/menu 로 들어오면 http://localhost:8001로 포워딩
