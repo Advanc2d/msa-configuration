@@ -7,7 +7,7 @@ eureka:
     register-with-eureka: true  # 유레카에 등록할지 여부.
     fetch-registry: true  # 유레카에서 조회할지 여부
     service-url:
-     defaultZone: http://192.168.1.49:8761/eureka # 서비스를 등록할 서버 주소를 지정  #임시 : 도커를 위해 현민ip주소에 등록
+     defaultZone: http://192.168.1.54:8761/eureka # 서비스를 등록할 서버 주소를 지정  #임시 : 도커를 위해 현민ip주소에 등록
 
 #keycloak 설정          
 keycloak:
@@ -23,8 +23,8 @@ keycloak:
 spring:         
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.1.51:3306/dream?serverTimezone=UTC&characterEncoding=UTF-8
-    username: dream
+    url: jdbc:mysql://192.168.1.54:13306/dream?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
     password: 1234
   kafka:
     bootstrap-servers: 127.0.0.1:9092 #도커 ip주소 입력
