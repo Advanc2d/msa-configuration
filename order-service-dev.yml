@@ -1,3 +1,16 @@
+server:
+  port: 8002
+
+# 유레카 클라이언트 설정            
+eureka:
+ instance:
+   instance-id: order-microservice-instance # eureka에 등록되는 id 값
+ client:
+   register-with-eureka: true  # 유레카에 등록할지 여부.
+   fetch-registry: true  # 유레카에서 조회할지 여부
+   service-url:
+     defaultZone: http://192.168.1.54:8761/eureka # 서비스를 등록할 서버 주소를 지정  #임시 : 도커를 위해 현민ip주소에 등록 
+     
 # db 설정 
 spring:         
   datasource:
@@ -8,14 +21,7 @@ spring:
   kafka:
     bootstrap-servers: 172.18.0.101:9092 #도커 ip주소 입력   
    
----
-#docker kafka 설정
-# spring:
-#   kafka:
-#     bootstrap-servers: 172.18.0.101:9092 #도커 ip주소 입력
-#     server_endpoint: 127.0.0.1:9092
-#     topic_name: my-topic
-    
+---   
 # security 설정
 spring:       
  security:
@@ -38,25 +44,10 @@ keycloak:
 mybatis:
  mapper-locations: classpath*:mapper/*.xml
 
- 
-# 유레카 클라이언트 설정            
-eureka:
- instance:
-   instance-id: order-microservice-instance # eureka에 등록되는 id 값
- client:
-   register-with-eureka: true  # 유레카에 등록할지 여부.
-   fetch-registry: true  # 유레카에서 조회할지 여부
-   service-url:
-     defaultZone: http://192.168.1.54:8761/eureka # 서비스를 등록할 서버 주소를 지정  #임시 : 도커를 위해 현민ip주소에 등록 
      
 #kafka 설정
 kafka:
   server_endpoint: 172.18.0.101:9092
-  topic_name: my-topic1
-  group_id: consumer-1
-#  bootstrap-servers: 172.18.0.101:9092 #도커 ip주소 입력
-
----
-kafka:
-  server_endpoint: 172.18.0.101:9092
   topic_name: my-topic2
+  group_id: consumer-1
+
