@@ -1,14 +1,32 @@
+server:
+  port: 8008
 
 # 유레카 클라이언트 설정    
 eureka:
   instance:
-    instance-id: manage-microservice-instance  # eureka에 등록되는 id 값
+    instance-id: test-microservice-instance  # eureka에 등록되는 id 값
   client:
     register-with-eureka: true  # 유레카에 등록할지 여부.
     fetch-registry: true  # 유레카에서 조회할지 여부
     service-url:
      defaultZone: http://192.168.1.54:8761/eureka # 서비스를 등록할 서버 주소를 지정  #임시 : 도커를 위해 현민ip주소에 등록
 
+ # db 설정 
+spring:         
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.54:13306/dream?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: 1234
+  kafka:
+    bootstrap-servers: 172.18.0.101:9092 #도커 ip주소 입력
+# security 설정     
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://192.168.1.54:8080/auth/realms/MSA/protocol/openid-connect/certs
+          
 #keycloak 설정          
 keycloak:
   realm: MSA
@@ -19,22 +37,6 @@ keycloak:
   credentials:
     secret: WEcACPUTWPfuhPrEz3bBaHcl7OLLmYX1
     
- # db 설정 
-spring:         
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.1.54:13306/dream?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: 1234
-  kafka:
-    bootstrap-servers: 127.0.0.1:9092 #도커 ip주소 입력
-# security 설정     
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://192.168.1.54:8080/auth/realms/MSA/protocol/openid-connect/certs
-  
 # mybatis 연동 설정   
 mybatis:
   mapper-locations: classpath*:mapper/*.xml    
@@ -42,5 +44,5 @@ mybatis:
 
 #kafka 설정
 kafka:
- server_endpoint: 127.0.0.1:9092
+ server_endpoint: 172.18.0.101:9092
  topic_name: status-topic
