@@ -4,7 +4,7 @@ server:
 # 유레카 클라이언트 설정    
 eureka:
   instance:
-    instance-id: bbbbb-microservice-instance  # eureka에 등록되는 id 값
+    instance-id: cccccc-microservice-instance  # eureka에 등록되는 id 값
   client:
     register-with-eureka: true  # 유레카에 등록할지 여부.
     fetch-registry: true  # 유레카에서 조회할지 여부
