@@ -1,5 +1,5 @@
 server:
-  port: 8000
+  port: 9000
 
 # 유레카 클라이언트 설정
 eureka:
@@ -9,10 +9,30 @@ eureka:
     service-url:
      defaultZone: http://192.168.1.54:8761/eureka # 서비스를 등록할 서버 주소를 지정  #임시 : 도커를 위해 현민ip주소에 등록 
   instance:
-    instance-id: gateway-test-microservice-instance # eureka에 등록되는 id 값   
+    instance-id: test-gateway-microservice-instance # eureka에 등록되는 id 값   
+
+#keycloak 설정          
+keycloak:
+  realm: MSA
+  resource: spring-gateway-client
+  auth-server-url: http://192.168.1.54:8080/auth
 
 #라우팅
 spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://192.168.1.54:8080/auth/realms/MSA
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+#            provider: keycloak
+            client-id: spring-gateway-client
+            client-secret: WEcACPUTWPfuhPrEz3bBaHcl7OLLmYX1
+            authorization-grant-type: authorization_code
+            redirect-uri: '{baseUrl}/login/oauth2/code/keycloak'     
   cloud:
    gateway:
       filter:
@@ -99,7 +119,9 @@ spring:
             - name: CircuitBreaker
               args:
                   name: errorCircuitBreaker
-                  fallbackUri: forward:/fallback/failure    
+                  fallbackUri: forward:/fallback/failure
+
+               
  
 #서킷브레이커    
 resilience4j:
@@ -127,3 +149,7 @@ resilience4j:
         baseConfig: default
       errorCircuitBreaker:
         baseConfig: default
+
+config:
+  test: docker config  with gateway!!!!! docker로 config dev -> test 불러오기
+  
