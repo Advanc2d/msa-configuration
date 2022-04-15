@@ -48,4 +48,4 @@ kafka:
  topic_name: status-topic
  
 manage:
-  test: manage-service-test config
+  test: manage-service-test config start start start
