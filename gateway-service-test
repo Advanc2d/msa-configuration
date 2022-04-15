@@ -1,0 +1,129 @@
+server:
+  port: 8000
+
+# 유레카 클라이언트 설정
+eureka:
+  client:
+    register-with-eureka: true  # 유레카에 등록할지 여부.
+    fetch-registry: true  # 유레카에서 조회할지 여부
+    service-url:
+     defaultZone: http://192.168.1.54:8761/eureka # 서비스를 등록할 서버 주소를 지정  #임시 : 도커를 위해 현민ip주소에 등록 
+  instance:
+    instance-id: gateway-test-microservice-instance # eureka에 등록되는 id 값   
+
+#라우팅
+spring:
+  cloud:
+   gateway:
+      filter:
+        circuit-breaker:
+          enabled: true
+      httpclient:
+        connect-timeout: 10000
+        response-timeout: 10s
+      default-filters:
+        -  TokenRelay
+      routes:
+        - id: main-service
+          uri: lb://MAIN-SERVICE 
+          predicates:
+            - Path=/main/** 
+          filters:
+            - RewritePath=/main/?(?<segment>.*), /$\{segment}     
+            - name: CircuitBreaker
+              args:
+                  name: mainCircuitBreaker
+                  fallbackUri: forward:/fallback/failure    
+                  
+        - id: product-service
+          uri: lb://PRODUCT-SERVICE 
+          predicates:
+            - Path=/product/** 
+          filters:
+            - RewritePath=/product/?(?<segment>.*), /$\{segment}     
+            - name: CircuitBreaker
+              args:
+                  name: productCircuitBreaker
+                  fallbackUri: forward:/fallback/failure    
+              
+        - id: manage-service
+          uri: lb://MANAGE-SERVICE 
+          predicates:
+            - Path=/manage/** 
+          filters:
+            - RewritePath=/manage/?(?<segment>.*), /$\{segment}
+            - name: CircuitBreaker
+              args:
+                  name: manageCircuitBreaker
+                  fallbackUri: forward:/fallback/failure                 
+        - id: order-service
+          uri: lb://ORDER-SERVICE 
+          predicates:
+            - Path=/order/** 
+          filters:
+            - RewritePath=/order/?(?<segment>.*), /$\{segment} 
+            - name: CircuitBreaker
+              args:
+                  name: orderCircuitBreaker
+                  fallbackUri: forward:/fallback/failure                 
+                                             
+        - id: confirm-service
+          uri: lb://CONFIRM-SERVICE 
+          predicates:
+            - Path=/confirm/** 
+          filters:
+            - RewritePath=/confirm/?(?<segment>.*), /$\{segment}
+            - name: CircuitBreaker
+              args:
+                  name: confirmCircuitBreaker
+                  fallbackUri: forward:/fallback/failure                 
+                                        
+                 
+        - id: approve-service
+          uri: lb://APPROVE-SERVICE 
+          predicates:
+            - Path=/approve/** 
+          filters:
+            - RewritePath=/approve/?(?<segment>.*), /$\{segment}
+            - name: CircuitBreaker
+              args:
+                  name: approveCircuitBreaker
+                  fallbackUri: forward:/fallback/failure                 
+        
+        - id: error-service-fallback
+          uri: lb://ERROR-SERVICE-FALLBACK # uri: http://localhost:8001 # 포워딩 할 주소, http://localhost:8000/menu 로 들어오면 http://localhost:8001로 포워딩
+          predicates:
+            - Path=/fallback/** # 해당 gateway 서버의 /menu/**로 들어오는 menu-service로 인식하겠다는 조건
+          filters:
+            - RewritePath=/fallback/?(?<segment>.*), /$\{segment}
+            - name: CircuitBreaker
+              args:
+                  name: errorCircuitBreaker
+                  fallbackUri: forward:/fallback/failure    
+ 
+#서킷브레이커    
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true # actuator를 통해 circuitbraker 상태를 확인하기 위해 설정
+        minimumNumberOfCalls: 5 # Circuit Breaker가 에러 비율 또 slow call 비율을 계산하기 전에 요구되는 최소한의 요청 수
+        failureRateThreshold: 50  # 에러 비율 (퍼센트)로 해당 값 이상으로 에러 발생시 서킷이 Open 된다.
+        waitDurationInOpenState: 10s  # 서킷의 상태가 Open에서 Half-open으로 변경되기 전에 Circuit Breaker가 기다리는 시간
+    instances:
+      mainCircuitBreaker:
+        baseConfig: default
+      manageCircuitBreaker:
+        baseConfig: default
+      productCircuitBreaker:
+        baseConfig: default
+      orderCircuitBreaker:
+        baseConfig: default
+      confirmCircuitBreaker:
+        baseConfig: default
+      statusCircuitBreaker:
+        baseConfig: default
+      approveCircuitBreaker:
+        baseConfig: default
+      errorCircuitBreaker:
+        baseConfig: default
