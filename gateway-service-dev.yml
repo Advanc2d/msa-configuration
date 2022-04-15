@@ -149,6 +149,8 @@ resilience4j:
         baseConfig: default
       errorCircuitBreaker:
         baseConfig: default
-      
+
+config:
+  test: spring cloud config with gateway!!!!!
 
 
