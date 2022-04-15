@@ -151,5 +151,5 @@ resilience4j:
         baseConfig: default
 
 config:
-  test: spring cloud config with gateway!!!!! HELLO CONFIG CHANGE TEST
+  test: spring cloud config with gateway!!!!! 돌아가 config
 
