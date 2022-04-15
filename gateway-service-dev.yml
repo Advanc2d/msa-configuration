@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 8000
 
 # 유레카 클라이언트 설정
 eureka:
@@ -9,7 +9,7 @@ eureka:
     service-url:
      defaultZone: http://192.168.1.54:8761/eureka # 서비스를 등록할 서버 주소를 지정  #임시 : 도커를 위해 현민ip주소에 등록 
   instance:
-    instance-id: test-gateway-microservice-instance # eureka에 등록되는 id 값   
+    instance-id: gateway-microservice-instance # eureka에 등록되는 id 값   
 
 #keycloak 설정          
 keycloak:
@@ -151,5 +151,5 @@ resilience4j:
         baseConfig: default
 
 config:
-  test: spring cloud config with gateway!!!!! gateway 포트번호가 9000으로 변경되었습니다.
+  test: spring cloud config with gateway!!!!! 원상복귀
 
