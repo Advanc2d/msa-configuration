@@ -46,3 +46,6 @@ mybatis:
 kafka:
  server_endpoint: 172.18.0.101:9092
  topic_name: status-topic
+ 
+manage:
+  test: manage-service config test
