@@ -151,5 +151,4 @@ resilience4j:
         baseConfig: default
 
 config:
-  test: spring cloud config with gateway!!!!! 2222333
-
+  test: spring cloud config with gateway!!!!! config test 입니다.
