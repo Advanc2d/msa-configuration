@@ -156,4 +156,4 @@ resilience4j:
         baseConfig: default
 
 config:
-  test: spring cloud config with gateway!!!!! config test 입니다.
+  test: spring cloud config with gateway!!!!! config test 종료햇씁니다.
