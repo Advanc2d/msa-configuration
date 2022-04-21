@@ -156,4 +156,4 @@ resilience4j:
         baseConfig: default
 
 config:
-  test: spring cloud config with gateway!!!!! Circuit Breaker 적용버전입니다.
+  test: spring cloud config with gateway!!!!! Docker dev -> qa로 바꾸면서 Circuit Breaker 적용버전입니다.
