@@ -9,7 +9,7 @@ eureka:
     service-url:
      defaultZone: http://192.168.1.54:8761/eureka # 서비스를 등록할 서버 주소를 지정  #임시 : 도커를 위해 현민ip주소에 등록 
   instance:
-    instance-id: gateway-microservice-instance # eureka에 등록되는 id 값   
+    instance-id: circuit-gateway-microservice-instance # eureka에 등록되는 id 값   
 
 #keycloak 설정          
 keycloak:
@@ -156,4 +156,4 @@ resilience4j:
         baseConfig: default
 
 config:
-  test: spring cloud config with gateway!!!!! config test 종료햇씁니다.
+  test: spring cloud config with gateway!!!!! Circuit Breaker 적용버전입니다.
