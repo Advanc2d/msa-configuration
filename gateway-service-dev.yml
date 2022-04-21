@@ -9,7 +9,7 @@ eureka:
     service-url:
      defaultZone: http://192.168.1.54:8761/eureka # 서비스를 등록할 서버 주소를 지정  #임시 : 도커를 위해 현민ip주소에 등록 
   instance:
-    instance-id: 12gateway-microservice-instance # eureka에 등록되는 id 값   
+    instance-id: gateway-microservice-instance # eureka에 등록되는 id 값   
 
 #keycloak 설정          
 keycloak:
@@ -91,5 +91,5 @@ spring:
                
 
 config:
-  test: docker config  with gateway!!!!! 인스턴스 아이디가 변경되었습니다.
+  test: docker config  with gateway!!!!!
   
