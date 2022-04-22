@@ -40,7 +40,7 @@ spring:
           enabled: true
       httpclient:
         connect-timeout: 10000
-        response-timeout: 10s
+        response-timeout: 30s
       default-filters:
         -  TokenRelay
       routes:
