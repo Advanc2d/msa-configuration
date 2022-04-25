@@ -19,7 +19,7 @@ spring:
     username: root
     password: 1234
   kafka:
-    bootstrap-servers: 172.18.0.112:9092 #도커 ip주소 입력   
+    bootstrap-servers: 172.18.0.101:9092 #도커 ip주소 입력   
 
 --- 
 # security 설정
