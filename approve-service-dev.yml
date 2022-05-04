@@ -9,15 +9,15 @@ eureka:
    register-with-eureka: true  # 유레카에 등록할지 여부.
    fetch-registry: true  # 유레카에서 조회할지 여부
    service-url:
-     defaultZone: http://192.168.1.112:8761/eureka # 서비스를 등록할 서버 주소를 지정  #임시 : 도커를 위해 해당 컴퓨터 ip주소에 등록
+     defaultZone: http://10.10.28.97:8761/eureka # 서비스를 등록할 서버 주소를 지정  #임시 : 도커를 위해 해당 컴퓨터 ip주소에 등록
 
 # db 설정 
 spring:         
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.1.54:13306/dream?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://10.10.28.97:13306/dream?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
-    password: 1234
+    password: gusrl145!@
   kafka:
     bootstrap-servers: 172.18.0.101:9092 #도커 ip주소 입력   
     
@@ -28,7 +28,7 @@ spring:
    oauth2:
      resourceserver:
        jwt:
-         jwk-set-uri: http://192.168.1.112:8080/auth/realms/MSA/protocol/openid-connect/certs
+         jwk-set-uri: http://10.10.28.97:8080/auth/realms/MSA/protocol/openid-connect/certs
           
 #keycloak 설정          
 keycloak:
@@ -36,7 +36,7 @@ keycloak:
  bearer-only: true
  ssl-required: external
  resource: spring-gateway-client
- auth-server-url: http://192.168.1.112:8080/auth
+ auth-server-url: http://10.10.28.97:8080/auth
  credentials:
    secret: WEcACPUTWPfuhPrEz3bBaHcl7OLLmYX1
 
