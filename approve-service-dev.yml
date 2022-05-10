@@ -17,7 +17,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://10.10.28.97:13306/dream?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
-    password: gusrl145!@
+    password: 1234
   kafka:
     bootstrap-servers: 172.18.0.101:9092 #도커 ip주소 입력   
     
