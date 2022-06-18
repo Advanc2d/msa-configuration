@@ -15,7 +15,7 @@ eureka:
 spring:         
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://172.30.1.30:3306/dream?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://172.30.1.30:13306/dream?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
     password: 1234
 #   resources:
