@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: 9001
 
 # 유레카 클라이언트 설정   
 eureka:
