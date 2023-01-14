@@ -1,6 +1,24 @@
 server:
   port: 8000
 
+spring: 
+  cloud:
+   gateway:
+      routes:
+        - id: auth-service
+          uri: lb://AUTH-SERVICE 
+          predicates:
+            - Path=/auth/** 
+          filters:
+            - RewritePath=/auth/?(?<segment>.*), /$\{segment}       
+                  
+        - id: demo-service
+          uri: lb://DEMO-SERVICE 
+          predicates:
+            - Path=/demo/** 
+          filters:
+            - RewritePath=/demo/?(?<segment>.*), /$\{segment}        
+
 eureka:
   instance:
     instance-id: gateway-instance
