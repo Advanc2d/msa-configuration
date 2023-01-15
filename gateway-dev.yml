@@ -19,16 +19,6 @@ spring:
           filters:
             - RewritePath=/demo/?(?<segment>.*), /$\{segment}        
 
-eureka:
-  instance:
-    instance-id: gateway-instance
-    
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://172.30.1.86:8761/eureka
-
 management:
   endpoints:
    web:
