@@ -1,13 +1,2 @@
 server:
   port: 4000
-
-
-eureka:
-  instance:
-    instance-id: auth-service-instance
-    
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://172.30.1.86:8761/eureka
