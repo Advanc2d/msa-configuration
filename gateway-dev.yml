@@ -1,6 +1,16 @@
 server:
   port: 8000
 
+eureka:
+  instance:
+    instance-id: gateway-instance
+    
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://172.20.10.5:8761/eureka
+
 spring: 
   cloud:
    gateway:
@@ -18,16 +28,6 @@ spring:
             - Path=/demo/** 
           filters:
             - RewritePath=/demo/?(?<segment>.*), /$\{segment}        
-
-eureka:
-  instance:
-    instance-id: gateway-instance
-    
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://192.168.219.101:8761/eureka
 
 management:
   endpoints:
