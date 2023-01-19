@@ -13,9 +13,14 @@ eureka:
 
 management:
   endpoints:
-    web:
-      exposure:
-        include: refresh
+   web:
+    exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: always # actuator에서 디테일한 정보들을 확인하기 위해 설정
         
 restTemplate:
   uri: http://10.10.28.97:4001/test
