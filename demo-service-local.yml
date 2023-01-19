@@ -18,4 +18,4 @@ management:
         include: refresh
         
 restTemplate:
-  uri: http://10.10.28.97:4001
+  uri: http://10.10.28.97:4001/auth/test
